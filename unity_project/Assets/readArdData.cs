@@ -8,7 +8,7 @@ using System.IO.Ports;
 
 
 
-public class ReadArd2 : MonoBehaviour {
+public class ReadArdData : MonoBehaviour {
     // Use this for initialization
 
     public float speed;
