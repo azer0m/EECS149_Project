@@ -5,7 +5,6 @@
 
 // Import OpenKinect library
 import org.openkinect.processing.*;
-//import java.nio.FloatBuffer;
 
 // Kinect2 Library object
 Kinect2 kinect2;
@@ -104,16 +103,26 @@ void draw() {
   }
   avgX = sumX/totalPixels;
   avgY = sumY/totalPixels;
-  fill(150, 0, 255);
+  fill(255);
   ellipse(avgX, avgY, 10, 10);
   int new_offset = avgX + (avgY * kinect2.depthWidth);
-  text("("+avgX+", "+avgY+", "+depth[new_offset]+")",10,64);
+  PVector apoint = depthToPointCloudPos(avgX, avgY, depth[new_offset]);
+  text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);
   
-  output.println(avgX + ", " + avgY + ", " + depth[new_offset]);
+  output.println(int(apoint.x) + ", " + int(apoint.y) + ", " + int(apoint.z));
 }
 
 void keyPressed() {
   output.flush();
   output.close();
   exit();
+}
+
+//calculte the xyz camera position based on the depth data
+PVector depthToPointCloudPos(int x, int y, float depthValue) {
+  PVector point = new PVector();
+  point.z = (depthValue);// / (1.0f); // Convert from mm to meters
+  point.x = (x - CameraParams.cx) * point.z / CameraParams.fx;
+  point.y = (y - CameraParams.cy) * point.z / CameraParams.fy;
+  return point;
 }
