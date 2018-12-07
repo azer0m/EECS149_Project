@@ -43,9 +43,23 @@ public class ReadArdData : MonoBehaviour {
                 y = Convert.ToSingle(orientation[1]);
                 z = Convert.ToSingle(orientation[2]);
                 transform.eulerAngles = new Vector3(-y, x, z);
+
+            using(var reader = new StreamReader(@"~/149/EECS149_Project/KinectCode/CentroidTracking/hand_coordinates.csv")) {
+
+                List<string> listA = new List<string>();
+                List<string> listB = new List<string>();
+                List<string> listC = new List<string>();
+                while (!reader.EndOfStream) {
+
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+                    listA.Add(values[0]);
+                    listB.Add(values[1]);
+                    listC.Add(values[2]);
+                    }
+                }
             }
 			catch(System.Exception) {
-
 			}
 		}
         //rotates object by repective degrees
