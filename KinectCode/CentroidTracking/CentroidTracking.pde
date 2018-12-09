@@ -1,3 +1,13 @@
+import hypermedia.net.*;
+
+import processing.video.*;
+import java.io.*;
+import java.net.*;
+import javax.imageio.*;
+import java.awt.image.*;
+
+import processing.serial.*;
+
 // Ahmed Malik
 // EECS 149 Final Project
 // GOAL: Hand tracking via centroid algorithm
@@ -6,8 +16,12 @@
 // Import OpenKinect library
 import org.openkinect.processing.*;
 
+DatagramSocket ds; 
+
 // Kinect2 Library object
 Kinect2 kinect2;
+
+Serial myPort;
 
 // Object type for writing output file
 PrintWriter output;
@@ -42,6 +56,16 @@ int avgY;
 void setup() {
   // Size of Kinect depth camera visualization
   size(512, 424);
+  
+  try {
+    ds = new DatagramSocket();
+  } catch (SocketException e) {
+    e.printStackTrace();
+  }
+  
+  println("************************"+Serial.list()[1]);
+  String portName = Serial.list()[1];
+  myPort = new Serial(this, portName, 9600);
 
   // Setup Kinect2 and image
   kinect2 = new Kinect2(this);
@@ -50,7 +74,7 @@ void setup() {
   kinect2.initDevice();
   img = createImage(kinect2.depthWidth, kinect2.depthHeight, RGB);
   
-  output = createWriter("hand_coordinates.csv");
+  //output = createWriter("hand_coordinates.csv");
 }
 
 void draw() {
@@ -107,16 +131,23 @@ void draw() {
   ellipse(avgX, avgY, 10, 10);
   int new_offset = avgX + (avgY * kinect2.depthWidth);
   PVector apoint = depthToPointCloudPos(avgX, avgY, depth[new_offset]);
-  text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);
+  //text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);
   
-  output.println(int(apoint.x) + ", " + int(apoint.y) + ", " + int(apoint.z));
+  //output.println(int(apoint.x) + ", " + int(apoint.y) + ", " + int(apoint.z));
+  
+  //for (int x = 0; x < 100; x++) {
+  //  myPort.write(x);
+  //  println(x);
+  //  delay(10);
+  //}
+  //exit();
 }
 
-void keyPressed() {
-  output.flush();
-  output.close();
-  exit();
-}
+//void keyPressed() {
+//  output.flush();
+//  output.close();
+//  exit();
+//}
 
 //calculte the xyz camera position based on the depth data
 PVector depthToPointCloudPos(int x, int y, float depthValue) {

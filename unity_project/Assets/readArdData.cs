@@ -8,14 +8,14 @@ using System.IO.Ports;
 
 
 
-public class ReadArdData : MonoBehaviour {
+public class readArdData : MonoBehaviour {
     // Use this for initialization
 
     public float speed;
 	private float amountToMove;
     // make sure to get the right serial port and baud rate for microcontroller
     //
-	SerialPort sp = new SerialPort("/dev/cu.usbmodem144401", 9600);
+	SerialPort sp = new SerialPort("/dev/cu.usbmodem14101", 9600);
     string data;
     float x;
     float y;
@@ -34,30 +34,30 @@ public class ReadArdData : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		amountToMove = speed * Time.deltaTime; // makes movement framerate independent
+		//amountToMove = speed * Time.deltaTime; // makes movement framerate independent
 		if (sp.IsOpen) {
 			try {
                 data = sp.ReadLine();
                 string[] orientation = data.Split(' ');
-                x = Convert.ToSingle(orientation[0]);
-                y = Convert.ToSingle(orientation[1]);
-                z = Convert.ToSingle(orientation[2]);
-                transform.eulerAngles = new Vector3(-y, x, z);
+                //x = Convert.ToSingle(orientation[0]);
+                //y = Convert.ToSingle(orientation[1]);
+                //z = Convert.ToSingle(orientation[2]);
+                //transform.eulerAngles = new Vector3(-y, x, z);
 
-            using(var reader = new StreamReader(@"~/149/EECS149_Project/KinectCode/CentroidTracking/hand_coordinates.csv")) {
+            //using(var reader = new StreamReader(@"~/149/EECS149_Project/KinectCode/CentroidTracking/hand_coordinates.csv")) {
 
-                List<string> listA = new List<string>();
-                List<string> listB = new List<string>();
-                List<string> listC = new List<string>();
-                while (!reader.EndOfStream) {
+                //List<string> listA = new List<string>();
+                //List<string> listB = new List<string>();
+                //List<string> listC = new List<string>();
+                //while (!reader.EndOfStream) {
 
-                    var line = reader.ReadLine();
-                    var values = line.Split(';');
-                    listA.Add(values[0]);
-                    listB.Add(values[1]);
-                    listC.Add(values[2]);
-                    }
-                }
+                //    var line = reader.ReadLine();
+                //    var values = line.Split(';');
+                //    listA.Add(values[0]);
+                //    listB.Add(values[1]);
+                //    listC.Add(values[2]);
+                //    }
+                //}
             }
 			catch(System.Exception) {
 			}

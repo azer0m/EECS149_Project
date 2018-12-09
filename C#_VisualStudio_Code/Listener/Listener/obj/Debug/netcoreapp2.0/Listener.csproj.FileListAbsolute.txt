@@ -1,0 +1,11 @@
+/Users/Ahmed/Projects/Listener/Listener/bin/Debug/netcoreapp2.0/Listener.deps.json
+/Users/Ahmed/Projects/Listener/Listener/bin/Debug/netcoreapp2.0/Listener.runtimeconfig.json
+/Users/Ahmed/Projects/Listener/Listener/bin/Debug/netcoreapp2.0/Listener.runtimeconfig.dev.json
+/Users/Ahmed/Projects/Listener/Listener/bin/Debug/netcoreapp2.0/Listener.dll
+/Users/Ahmed/Projects/Listener/Listener/bin/Debug/netcoreapp2.0/Listener.pdb
+/Users/Ahmed/Projects/Listener/Listener/obj/Debug/netcoreapp2.0/Listener.csprojAssemblyReference.cache
+/Users/Ahmed/Projects/Listener/Listener/obj/Debug/netcoreapp2.0/Listener.csproj.CoreCompileInputs.cache
+/Users/Ahmed/Projects/Listener/Listener/obj/Debug/netcoreapp2.0/Listener.AssemblyInfoInputs.cache
+/Users/Ahmed/Projects/Listener/Listener/obj/Debug/netcoreapp2.0/Listener.AssemblyInfo.cs
+/Users/Ahmed/Projects/Listener/Listener/obj/Debug/netcoreapp2.0/Listener.dll
+/Users/Ahmed/Projects/Listener/Listener/obj/Debug/netcoreapp2.0/Listener.pdb

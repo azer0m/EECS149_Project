@@ -1,0 +1,11 @@
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/bin/Debug/netcoreapp2.0/SimpleUDP.deps.json
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/bin/Debug/netcoreapp2.0/SimpleUDP.runtimeconfig.json
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/bin/Debug/netcoreapp2.0/SimpleUDP.runtimeconfig.dev.json
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/bin/Debug/netcoreapp2.0/SimpleUDP.dll
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/bin/Debug/netcoreapp2.0/SimpleUDP.pdb
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/obj/Debug/netcoreapp2.0/SimpleUDP.csprojAssemblyReference.cache
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/obj/Debug/netcoreapp2.0/SimpleUDP.csproj.CoreCompileInputs.cache
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/obj/Debug/netcoreapp2.0/SimpleUDP.AssemblyInfoInputs.cache
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/obj/Debug/netcoreapp2.0/SimpleUDP.AssemblyInfo.cs
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/obj/Debug/netcoreapp2.0/SimpleUDP.dll
+/Users/Ahmed/Projects/SimpleUDP/SimpleUDP/obj/Debug/netcoreapp2.0/SimpleUDP.pdb
