@@ -18,7 +18,7 @@
 */
 
 /* Set the delay between fresh samples */
-#define BNO055_SAMPLERATE_DELAY_MS (100)
+#define BNO055_SAMPLERATE_DELAY_MS (800)
 
 Adafruit_BNO055 bno = Adafruit_BNO055();
 // Pin connected to voltage divider output
@@ -29,7 +29,7 @@ const int FLEX_PIN1 = A1;// 9.42 16.0 9.83 middle
 const int FLEX_PIN2 = A2;// 9.19 16.25 9.84 ring
 const int FLEX_PIN3 = A3; // 8.42 15.0 17.4 9.83 thumb
 // pinky is short flex sensor
-//const int FLEX_PIN4 = A4; // 22.8 60.0 26.7 pinky
+const int FLEX_PIN4 = A6; // 22.8  60.0 26.7 pinky
 
 // Measure the voltage at 5V and the actual resistance of your
 // resistor, and enter them below:
@@ -105,9 +105,9 @@ void loop(void)
   float flexV3 = flexADC3 * VCC / 1023.0;
   float flexR3 = R_DIV * (VCC / flexV3 - 1.0);
   
- //  int flexADC4 = analogRead(FLEX_PIN4);
- // float flexV4 = flexADC4 * VCC / 1023.0;
- // float flexR4 = R_DIV * (VCC / flexV4 - 1.0);
+   int flexADC4 = analogRead(FLEX_PIN4);
+  float flexV4 = flexADC4 * VCC / 1023.0;
+  float flexR4 = R_DIV * (VCC / flexV4 - 1.0);
 
   /* Display the floating point data */
   Serial.print("X: ");
@@ -138,8 +138,8 @@ void loop(void)
   float angle3 = map(flexR3, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
   Serial.println("Bend: " + String(angle3) + " degrees");
   
-//  float angle4 = map(flexR4, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
-//  Serial.println("Bend: " + String(angle4) + " degrees");
+  float angle4 = map(flexR4, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
+  Serial.println("Bend: " + String(angle4) + " degrees");
   /*
   // Quaternion data
   imu::Quaternion quat = bno.getQuat();
