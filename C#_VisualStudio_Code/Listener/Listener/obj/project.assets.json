@@ -670,11 +670,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/Ahmed/Projects/Listener/Listener/Listener.csproj",
+      "projectUniqueName": "/Users/Ahmed/Documents/College/Fall18/EECS149/final_project/EECS149_Project/C#_VisualStudio_Code/Listener/Listener/Listener.csproj",
       "projectName": "Listener",
-      "projectPath": "/Users/Ahmed/Projects/Listener/Listener/Listener.csproj",
+      "projectPath": "/Users/Ahmed/Documents/College/Fall18/EECS149/final_project/EECS149_Project/C#_VisualStudio_Code/Listener/Listener/Listener.csproj",
       "packagesPath": "/Users/Ahmed/.nuget/packages/",
-      "outputPath": "/Users/Ahmed/Projects/Listener/Listener/obj",
+      "outputPath": "/Users/Ahmed/Documents/College/Fall18/EECS149/final_project/EECS149_Project/C#_VisualStudio_Code/Listener/Listener/obj",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

@@ -13,7 +13,7 @@ udpTX=new UDP(this);
 //udpTX.loopback(true);r
 //udpTX=new UDP(this);
 udpTX.log(true);
-noLoop();
+//noLoop();
 }
 
 void draw(){

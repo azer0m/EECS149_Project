@@ -1,80 +1,64 @@
-import hypermedia.net.*;
+// Ahmed Malik
+// EECS 149 Final Project
+// GOAL: Hand tracking via centroid algorithm. Transfer data to Unity via UDP protocol.
+// 12/5/2018
 
+import hypermedia.net.*;  // For UDP library
 import processing.video.*;
 import java.io.*;
 import java.net.*;
 import javax.imageio.*;
 import java.awt.image.*;
+import processing.serial.*;  // For Serial communication
+import org.openkinect.processing.*;  // For Kinect
 
-import processing.serial.*;
+Kinect2 kinect2;  // Kinect2 Library object
+PImage img;  // Rendered image object
+int loc;  // Current mouse location
+int colorEllipse = 255;  // Set the color of the ellipse tracking the hand
+int sizeEllipse = 10;  // Set the size of the ellipse tracking the hand
 
-// Ahmed Malik
-// EECS 149 Final Project
-// GOAL: Hand tracking via centroid algorithm
-// 12/5/2018
+// Used for UDP data transfer
+int port = 9300;  // Arbitrary port number above 9000
+String ip = "127.0.0.1";  // localhost
+String msg;  // UDP sends data in String type
+int msgNum = -1;  // Int type for testing data transfer over UDP
+UDP udpTX;  // Transmitting UDP object
+DatagramSocket ds;  // Datagram type object for data transfer
 
-// Import OpenKinect library
-import org.openkinect.processing.*;
+// Used for extracting depth data
+int[] depth;  // Depth array
+int offset;  // Location in grid of pixels in actual list data structure
+int d;  // Depth value d, in [mm]
+float minThresh = 400;  // minimum threshold for depth visualization
+float maxThresh = 1000;  // maximum threhsold for depth visualization
 
-DatagramSocket ds; 
-
-// Kinect2 Library object
-Kinect2 kinect2;
-
-Serial myPort;
-
-// Object type for writing output file
-PrintWriter output;
-
-// minimum and maximum bounds for depth visualization
-float minThresh = 400;
-float maxThresh = 800;
-
-// Rendered image object
-PImage img;
-
-// Depth array
-int[] depth;
-// Location in grid of pixels in actual list data structure
-int offset;
-// Depth value d, in mm
-int d;
-// Current mouse location
-int loc;
-
-// Sum of all x pixel locations in image, within threshold
-int sumX;
-// Sum of all y pixel locations in image, within threshold
-int sumY;
-// Total number of individual pixels in image, within threshold
-int totalPixels;
-// Average x pixel location
-int avgX;
-// Average y pixel location
-int avgY;
+// Used for centroid tracking algorithm
+int sumX;  // Sum of all x pixel locations in image, within threshold
+int sumY;  // Sum of all y pixel locations in image, within threshold
+int totalPixels;  // Total number of individual pixels in image, within threshold
+int avgX;  // Average x pixel location
+int avgY;  // Average y pixel location
 
 void setup() {
-  // Size of Kinect depth camera visualization
-  size(512, 424);
+  size(512, 424);  // Size of Kinect depth camera visualization
   
+  udpTX = new UDP(this);  // Don't give the object port or ip, otherwise it will bind to port disabling any other listeners
+  udpTX.log(true);  // Output log of data being transferred by UDP object
+  
+  // Setup the datagram object; requires try/catch block
   try {
     ds = new DatagramSocket();
   } catch (SocketException e) {
     e.printStackTrace();
   }
-  
-  println("************************"+Serial.list()[1]);
-  String portName = Serial.list()[1];
-  myPort = new Serial(this, portName, 9600);
 
   // Setup Kinect2 and image
-  kinect2 = new Kinect2(this);
-  kinect2.initDepth();
-  kinect2.initVideo();
-  kinect2.initDevice();
+  kinect2 = new Kinect2(this);  // Create Kinect2 object 
+  kinect2.initDepth();  // Initialize depth image
+  kinect2.initVideo();  // Initialize RGB image
+  kinect2.initDevice();  // Initialize Kinect 2 device
   img = createImage(kinect2.depthWidth, kinect2.depthHeight, RGB);
-  
-  //output = createWriter("hand_coordinates.csv");
 }
 
 void draw() {
@@ -84,72 +68,70 @@ void draw() {
   // Get the raw depth as array of integers
   depth = kinect2.getRawDepth();
   
-  sumX = 0;
-  sumY = 0;
-  totalPixels = 0;
+  sumX = 0;  // Initialize total x pixels' location in range as 0 before iterating through depth array
+  sumY = 0;  // Initialize total y pixels' location in range as 0 before iterating through depth array
+  totalPixels = 0;  // Initialize total pixels in range as 0 before iterating through depth array
   
   // Iterate through each pixel along the x-axis
   for (int x=0; x < kinect2.depthWidth; x++) {
     // Iterate through each pixel along the y-axis
     for (int y=0; y < kinect2.depthHeight; y++) {
-      // Set offset
-      offset = x + (y * kinect2.depthWidth);
-      // Set depth value for current location in list
-      d = depth[offset];
+      offset = x + (y * kinect2.depthWidth);  // Set offset
+      d = depth[offset];  // Set depth value for current location in list
       
       // If the depth value of the object is within our thresholds
       if (d > minThresh && d < maxThresh) {
-        // Color it
-        img.pixels[offset] = color(255, 0, 155);
+        img.pixels[offset] = color(255, 0, 155);  // Color it
         // Increment vars for centroid algorithm
         sumX += x;
         sumY += y;
         totalPixels++;
       } else {
-        // Otherwise leave it black
-        img.pixels[offset] = color(0);
+        img.pixels[offset] = color(0);  // Otherwise leave it black
       }
     }
   }
   
-  // Color the pixels by updating them 
-  img.updatePixels();
-  // Draw image to display window
-  image(img,0,0);
-  // Current mouse location determined similarly to offset, in list data structure
-  //loc = mouseX + (mouseY*kinect2.depthWidth);
-  // Set size of onscreen text display
-  textSize(32);
-  //text("("+mouseX+", "+mouseY+", "+depth[loc]+")",10,64);
+  img.updatePixels();  // Color the pixels by updating them
+  image(img,0,0);  // Draw image to display window
+  //loc = mouseX + (mouseY*kinect2.depthWidth);  // Current mouse location determined similarly to offset, in list data structure
+  //textSize(32);  // Set size of onscreen text display
+  //text("("+mouseX+", "+mouseY+", "+depth[loc]+")",10,64);  // Display current mouse location on-screen 
   
+  // If nothing in range of thresholds, totalPixels == 0, which will cause divide by zero error
   if (totalPixels < 1) {
     totalPixels = 1;
   }
-  avgX = sumX/totalPixels;
-  avgY = sumY/totalPixels;
-  fill(255);
-  ellipse(avgX, avgY, 10, 10);
+  avgX = sumX/totalPixels;  // Average x pixels location
+  avgY = sumY/totalPixels;  // Average y pixels location
+  
+  fill(colorEllipse);  // fill the ellipse object
+  ellipse(avgX, avgY, sizeEllipse, sizeEllipse);  // create ellipse object at (avgX, avgY)
+  
+  /*
+  The (x, y, z) points that we care about are the physical distances, so we create a PVector object
+  using depthToPointCloudPos. The point that we care about sending over to Unity is at an offset in
+  the depth_array that corresponds with our avgX and avgY values: hence new_offset below.
+  */
   int new_offset = avgX + (avgY * kinect2.depthWidth);
   PVector apoint = depthToPointCloudPos(avgX, avgY, depth[new_offset]);
-  //text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);
+  text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);  // Display this text on-screen for the physical (x, y, z) coordinates
   
-  //output.println(int(apoint.x) + ", " + int(apoint.y) + ", " + int(apoint.z));
-  
-  //for (int x = 0; x < 100; x++) {
-  //  myPort.write(x);
-  //  println(x);
-  //  delay(10);
-  //}
-  //exit();
+  String px = str(apoint.x);
+  String py = str(apoint.y);
+  String pz = str(apoint.z);
+  msg = px+","+py+","+pz+";";
+  udpTX.send(msg, ip, port);
+  loop();
 }
 
-//void keyPressed() {
-//  output.flush();
-//  output.close();
-//  exit();
-//}
+void keyPressed() {
+  udpTX.close();
+  exit();
+}
 
-//calculte the xyz camera position based on the depth data
+// Calculte the xyz camera position based on the depth data
+// Uses calibration data for the Kinect 2 from CameraParams class  
 PVector depthToPointCloudPos(int x, int y, float depthValue) {
   PVector point = new PVector();
   point.z = (depthValue);// / (1.0f); // Convert from mm to meters
