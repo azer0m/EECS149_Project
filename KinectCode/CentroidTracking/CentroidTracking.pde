@@ -117,9 +117,9 @@ void draw() {
   PVector apoint = depthToPointCloudPos(avgX, avgY, depth[new_offset]);
   text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);  // Display this text on-screen for the physical (x, y, z) coordinates
   
-  String px = str(apoint.x);
-  String py = str(apoint.y);
-  String pz = str(apoint.z);
+  String px = str(apoint.x/1000);
+  String py = str(apoint.y/1000);
+  String pz = str(apoint.z/1000);
   msg = px+","+py+","+pz;
   udpTX.send(msg, ip, port);
   loop();
