@@ -120,7 +120,7 @@ void draw() {
   String px = str(apoint.x);
   String py = str(apoint.y);
   String pz = str(apoint.z);
-  msg = px+","+py+","+pz+";";
+  msg = px+","+py+","+pz;
   udpTX.send(msg, ip, port);
   loop();
 }
