@@ -18,23 +18,22 @@
 */
 
 /* Set the delay between fresh samples */
-#define BNO055_SAMPLERATE_DELAY_MS (800)
+#define BNO055_SAMPLERATE_DELAY_MS (100)
 
 Adafruit_BNO055 bno = Adafruit_BNO055();
 // Pin connected to voltage divider output
 // straight_res 90_deg_res actual_res finger
 // will have to remeasure these after set in glove
-const int FLEX_PIN0 = A0; //8,8 19.5 9.85 index
+const int FLEX_PIN0 = A0; //8,8 19.5 9.85 ring
 const int FLEX_PIN1 = A1;// 9.42 16.0 9.83 middle
-const int FLEX_PIN2 = A2;// 9.19 16.25 9.84 ring
+const int FLEX_PIN2 = A2;// 9.19 16.25 9.84 index
 const int FLEX_PIN3 = A3; // 8.42 15.0 17.4 9.83 thumb
-// pinky is short flex sensor
-const int FLEX_PIN4 = A6; // 22.8  60.0 26.7 pinky
+const int FLEX_PIN4 = A6; // 22.8 60.0 26.7 pinky
 
 // Measure the voltage at 5V and the actual resistance of your
 // resistor, and enter them below:
-const float VCC = 5.0; // Measured voltage of Ardunio 5V line
-const float R_DIV = 9900.0; // Measured resistance of 3.3k resistor
+const float VCC = 3.3; // Measured voltage of Ardunio 5V line
+const float R_DIV = 9840.0; // Measured resistance of 3.3k resistor
 
 // Upload the code, then try to adjust these values to more
 // accurately calculate bend degree.
@@ -42,6 +41,8 @@ const float R_DIV = 9900.0; // Measured resistance of 3.3k resistor
 const float STRAIGHT_RESISTANCE = 9000.0; // resistance when straight
 const float BEND_RESISTANCE = 20000.0; // resistance at 90 deg
 
+const float STRAIGHT_RESISTANCE3 = 10700.0; // resistance when straight
+const float BEND_RESISTANCE3 = 18500.0; // resistance at 90 deg
 
 /**************************************************************************/
 /*
@@ -55,7 +56,7 @@ void setup(void)
   pinMode(FLEX_PIN1, INPUT);
   pinMode(FLEX_PIN2, INPUT);
   pinMode(FLEX_PIN3, INPUT);
-  //pinMode(FLEX_PIN4, INPUT);
+  pinMode(FLEX_PIN4, INPUT);
   
   Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
 
@@ -69,6 +70,8 @@ void setup(void)
   
 
   delay(1000);
+  bno.setExtCrystalUse(true);
+
 }
 
 /**************************************************************************/
@@ -122,7 +125,7 @@ void loop(void)
   Serial.println("Resistance: " + String(flexR1) + " ohms");
   Serial.println("Resistance: " + String(flexR2) + " ohms");
   Serial.println("Resistance: " + String(flexR3) + " ohms");
-  //Serial.println("Resistance: " + String(flexR4) + " ohms");
+  Serial.println("Resistance: " + String(flexR4) + " ohms");
 
   // Use the calculated resistance to estimate the sensor's
   // bend angle:
@@ -135,7 +138,7 @@ void loop(void)
   float angle2 = map(flexR2, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
   Serial.println("Bend: " + String(angle2) + " degrees");
   
-  float angle3 = map(flexR3, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
+  float angle3 = map(flexR3, STRAIGHT_RESISTANCE3, BEND_RESISTANCE3, 0, 90.0);
   Serial.println("Bend: " + String(angle3) + " degrees");
   
   float angle4 = map(flexR4, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
