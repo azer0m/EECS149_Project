@@ -115,6 +115,7 @@ void draw() {
   */
   int new_offset = avgX + (avgY * kinect2.depthWidth);
   PVector apoint = depthToPointCloudPos(avgX, avgY, depth[new_offset]);
+  textSize(32);
   text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);  // Display this text on-screen for the physical (x, y, z) coordinates
   
   String px = str(apoint.x/1000);
@@ -125,10 +126,10 @@ void draw() {
   loop();
 }
 
-void keyPressed() {
-  udpTX.close();
-  exit();
-}
+//void keyPressed() {
+//  udpTX.close();
+//  //exit();
+//}
 
 // Calculte the xyz camera position based on the depth data
 // Uses calibration data for the Kinect 2 from CameraParams class  
