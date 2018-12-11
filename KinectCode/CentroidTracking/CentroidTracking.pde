@@ -119,9 +119,9 @@ void draw() {
   text("("+int(apoint.x)+", "+int(apoint.y)+", "+int(apoint.z) +")", 10, 64);  // Display this text on-screen for the physical (x, y, z) coordinates
   
   String px = str(apoint.x/1000);
-  String py = str(apoint.y/1000);
-  String pz = str(apoint.z/1000);
-  msg = px+","+py+","+pz;
+  String py = str(-apoint.y/1000);  // Pretty sure that we need negative y
+  String pz = str(newZ_val(apoint.z));  // Pretty sure that we need to do the newZ_val functions correction
+  msg = px+","+py+","+pz;  // Data is being sent comma separated ONLY
   udpTX.send(msg, ip, port);
   loop();
 }
@@ -130,6 +130,11 @@ void draw() {
 //  udpTX.close();
 //  //exit();
 //}
+
+float newZ_val(float oldZ_val) {
+  float newZ_val = abs(oldZ_val-maxThresh)/1000;
+  return newZ_val;
+}
 
 // Calculte the xyz camera position based on the depth data
 // Uses calibration data for the Kinect 2 from CameraParams class  

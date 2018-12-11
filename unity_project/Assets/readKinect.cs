@@ -14,17 +14,15 @@ public class readKinect : MonoBehaviour {
     private const int listenPort = 9300;
     //IPAddress comefrom = IPAddress.Parse("127.0.1.1");
     private void StartListener()
-
     {
         UdpClient listener = new UdpClient(listenPort);
         IPEndPoint groupEP = new IPEndPoint(IPAddress.Loopback, listenPort);
-
         try
         {
             //    Console.WriteLine("Waiting for broadcast");
-                byte[] bytes = listener.Receive(ref groupEP);
-                posData = $" {Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
-                string[] posXYZ = posData.Split(' ');
+                byte[] bytes = listener.Receive(ref groupEP);   // byte array
+                posData = ($" {Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
+                string[] posXYZ = posData.Split(',');   // Comma separated data
                 X = Convert.ToSingle(posXYZ[0]);
                 Y = Convert.ToSingle(posXYZ[1]);
                 Z = Convert.ToSingle(posXYZ[2]);
