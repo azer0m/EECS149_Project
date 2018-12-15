@@ -1,0 +1,11 @@
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/bin/Debug/netcoreapp2.0/ReadTextFile.deps.json
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/bin/Debug/netcoreapp2.0/ReadTextFile.runtimeconfig.json
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/bin/Debug/netcoreapp2.0/ReadTextFile.runtimeconfig.dev.json
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/bin/Debug/netcoreapp2.0/ReadTextFile.dll
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/bin/Debug/netcoreapp2.0/ReadTextFile.pdb
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/obj/Debug/netcoreapp2.0/ReadTextFile.csprojAssemblyReference.cache
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/obj/Debug/netcoreapp2.0/ReadTextFile.csproj.CoreCompileInputs.cache
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/obj/Debug/netcoreapp2.0/ReadTextFile.AssemblyInfoInputs.cache
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/obj/Debug/netcoreapp2.0/ReadTextFile.AssemblyInfo.cs
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/obj/Debug/netcoreapp2.0/ReadTextFile.dll
+/Users/Ahmed/Projects/ReadTextFile/ReadTextFile/obj/Debug/netcoreapp2.0/ReadTextFile.pdb
