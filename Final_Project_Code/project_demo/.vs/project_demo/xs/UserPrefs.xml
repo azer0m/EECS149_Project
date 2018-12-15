@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{2D4C45E4-75A4-C878-C872-A6101E0DC844}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/readKinect.cs">
+    <Files>
+      <File FileName="Assets/readArdData.cs" Line="22" Column="11" />
+      <File FileName="Assets/readKinect.cs" Line="54" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
