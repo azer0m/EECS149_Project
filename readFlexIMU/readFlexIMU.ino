@@ -58,7 +58,7 @@ void setup(void)
   pinMode(FLEX_PIN3, INPUT);
   pinMode(FLEX_PIN4, INPUT);
   
-  Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
+  //Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
 
   /* Initialise the sensor */
   if(!bno.begin())
@@ -113,36 +113,45 @@ void loop(void)
   float flexR4 = R_DIV * (VCC / flexV4 - 1.0);
 
   /* Display the floating point data */
-  Serial.print("X: ");
-  Serial.print(euler.x());
-  Serial.print(" Y: ");
-  Serial.print(euler.y());
-  Serial.print(" Z: ");
-  Serial.print(euler.z());
-  Serial.print("\n");
+  //Serial.print("X: ");
+  Serial.print((int)euler.x());
+  //Serial.print(" Y: ");
+  Serial.print(" ");
+  Serial.print((int)euler.y());
+  //Serial.print(" Z: ");
+  Serial.print(" ");
+  Serial.print((int)euler.z());
+  //Serial.print("\n");
+  Serial.print(" ");
 
-  Serial.println("Resistance: " + String(flexR0) + " ohms");
-  Serial.println("Resistance: " + String(flexR1) + " ohms");
-  Serial.println("Resistance: " + String(flexR2) + " ohms");
-  Serial.println("Resistance: " + String(flexR3) + " ohms");
-  Serial.println("Resistance: " + String(flexR4) + " ohms");
+  //Serial.println("Resistance: " + String(flexR0) + " ohms");
+  //Serial.println("Resistance: " + String(flexR1) + " ohms");
+  //Serial.println("Resistance: " + String(flexR2) + " ohms");
+  //Serial.println("Resistance: " + String(flexR3) + " ohms");
+  //Serial.println("Resistance: " + String(flexR4) + " ohms");
 
   // Use the calculated resistance to estimate the sensor's
   // bend angle:
   float angle0 = map(flexR0, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
-  Serial.println("Bend: " + String(angle0) + " degrees");
-  
+  //Serial.println("Bend: " + String(angle0) + " degrees");
+  Serial.print((int)angle0);
+  Serial.print(" ");
   float angle1 = map(flexR1, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
-  Serial.println("Bend: " + String(angle1) + " degrees");
-  
+  //Serial.println("Bend: " + String(angle1) + " degrees");
+  Serial.print((int)angle1);
+  Serial.print(" ");
   float angle2 = map(flexR2, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
-  Serial.println("Bend: " + String(angle2) + " degrees");
-  
+  //Serial.println("Bend: " + String(angle2) + " degrees");
+  Serial.print((int)angle2);
+  Serial.print(" ");
   float angle3 = map(flexR3, STRAIGHT_RESISTANCE3, BEND_RESISTANCE3, 0, 90.0);
-  Serial.println("Bend: " + String(angle3) + " degrees");
-  
+  //Serial.println("Bend: " + String(angle3) + " degrees");
+  Serial.print((int)angle3);
+  Serial.print(" ");
   float angle4 = map(flexR4, STRAIGHT_RESISTANCE, BEND_RESISTANCE, 0, 90.0);
-  Serial.println("Bend: " + String(angle4) + " degrees");
+  //Serial.println("Bend: " + String(angle4) + " degrees");
+  Serial.println((int)angle4);
+  Serial.flush();
   /*
   // Quaternion data
   imu::Quaternion quat = bno.getQuat();
